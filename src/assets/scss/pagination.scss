@@ -1,0 +1,40 @@
+.pagination {
+	display: flex;
+	justify-content: center;
+	padding: 20px 0;
+	position: relative;
+}
+
+.pagination-link {
+	border: 1px solid cadetblue;
+	padding: 5px;
+	margin: 5px;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: cadetblue;
+	color: #fff;
+	transition: 0.2s;
+
+	&:not(&--current) {
+		cursor: pointer;
+
+		&:hover,
+		&.active {
+			background: #fff;
+			color: cadetblue;
+			text-decoration: none;
+		}
+
+	}
+
+
+	&.disabled {
+		opacity: 0.4;
+		pointer-events: none;
+	}
+
+
+}

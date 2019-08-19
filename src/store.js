@@ -1,0 +1,138 @@
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(Vuex);
+Vue.use(VueAxios, axios);
+
+const postsApi = "https://jsonplaceholder.typicode.com/posts";
+
+export default new Vuex.Store({
+	state: {
+		//posts
+		posts: [],
+		removePreload: false,
+		//catalog
+		inCart: [],
+		products: [
+			{"id": 1, "title": "iPad 4 Mini", "price": 500.01, "inventory": 2, "img": '1.jpg'},
+			{"id": 2, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 10, "img": '2.jpg'},
+			{"id": 3, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 5, "img": '3.jpg'},
+			{"id": 4, "title": "iPad 3", "price": 500.01, "inventory": 7, "img": '4.jpg'},
+			{"id": 5, "title": "H&M T-Shirt Red", "price": 10.99, "inventory": 6, "img": '5.jpg'},
+			{"id": 6, "title": "Asus g546", "price": 19.99, "inventory": 12, "img": '6.jpg'},
+			{"id": 7, "title": "iPhone 10", "price": 500.01, "inventory": 17, "img": '7.jpg'},
+			{"id": 8, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 3, "img": '2.jpg'},
+			{"id": 9, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 1, "img": '3.jpg'}
+		]
+	},
+	getters: {
+		//posts
+		getById: state => (id, arr) => {
+			return state[arr].find(item => item.id === id);
+		},
+
+		findFavourites: state => {
+			return state.posts.filter(post => post.liked);
+		},
+
+		findBySearch: state => searchText => {
+			return state.posts.filter(post => post.title.indexOf(searchText) >= 0);
+		},
+
+		//catalog
+
+		getImg: state => id => {
+			return state.products.find(product => product.id === id).img;
+		},
+
+		inCartLength: state => {
+			return state.inCart.length;
+		},
+
+		getFromCart: state => id => {
+			return state.inCart.find(cartItem => cartItem.id === id);
+		},
+
+		getTotalSum: state => {
+			let sum = 0;
+			state.inCart.forEach((item) => {
+				let price = state.products.find(x => x.id === item.id).price;
+				sum += price * item.count;
+			});
+
+			return sum;
+		}
+	},
+	mutations: {
+		//posts
+		changePosts (type, payload) {
+			let data = payload.data;
+			for (let i = 0; i < 10; i++) {
+				data[i].liked = false;
+				data[i].likeCount = 0;
+				this.state.posts.push(data[i]);
+			}
+		},
+
+		changePreloaderState () {
+			this.state.removePreload = true;
+		},
+
+		removePost (type, payload) {
+			let odd = this.getters.getById(payload.id, 'posts');
+			this.state.posts.splice(odd, 1);
+		},
+
+		addLike (type, payload) {
+			let likedItem = this.getters.getById(payload, 'posts');
+			if (likedItem.liked) {
+				likedItem.likeCount--;
+			} else {
+				likedItem.likeCount++;
+			}
+			likedItem.liked = !likedItem.liked;
+		},
+
+		//	catalog
+		addToCart(state, payload) {
+			state.inCart.push(payload);
+		},
+		updateCart(state, payload) {
+			let item = state.inCart.find(x => x.id === payload.id);
+			item.count += payload.count;
+		},
+
+		changeInCart(state, payload) {
+			let item = state.inCart.find(x => x.id === payload.id);
+			item.count += payload.val;
+		},
+
+		deleteFromCart(state, payload) {
+			state.inCart.forEach((el, i) => {
+				if (el.id === payload) {
+					state.inCart.splice(i, 1);
+					return false;
+				}
+			});
+		}
+	},
+	actions: {
+		getPosts () {
+			let $this = this;
+			Vue.axios.get(postsApi).then((response) => {
+				$this.commit({
+					'type': 'changePosts',
+					'data': response.data
+				});
+				$this.state.removePreload = true;
+
+			}, (err) => {
+				console.warn(err);
+				$this.state.removePreload = true;
+			});
+		}
+	},
+
+});
