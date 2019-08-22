@@ -2,7 +2,6 @@
   <div class="container">
       <tabs></tabs>
       <br>
-      <iframe width="1300" height="700" src="https://www.youtube.com/embed/eHk4ad1qn8s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 </template>
 

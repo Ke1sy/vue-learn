@@ -11,7 +11,7 @@
 			  <input type="text" :value="count" class="counter">
 			  <button @click="changeCount(1)" class="btn btn-success" :disabled="count>=getAvailableQuantity">+</button>
 		  </div>
-		  <p>В наличии: {{$store.getters.getById(this.product.id, 'products').inventory}}</p>
+		  <p>В наличии: {{getById(this.product.id, 'products').inventory}}</p>
 		  <button class="btn btn-info btn-md" @click="addToCart()" :disabled="count>getAvailableQuantity">В корзину</button>
 	  </div>
   </div>
@@ -19,6 +19,7 @@
 
 <script>
   import $ from 'jquery';
+  import { mapGetters } from 'vuex';
   export default {
     props: ['product'],
     data() {
@@ -35,11 +36,11 @@
         }
       },
       getUrl(id) {
-        let img = this.$store.getters.getImg(id);
+        let img = this.getImg(id);
         return img;
       },
       addToCart() {
-        if (this.$store.getters.getFromCart(this.product.id)) {
+        if (this.getFromCart(this.product.id)) {
           this.$store.commit('updateCart', {
             id: this.product.id,
             count: this.count
@@ -57,12 +58,17 @@
     },
     computed: {
       getAvailableQuantity() {
-        if (!this.$store.getters.getFromCart(this.product.id)) {
-          return this.$store.getters.getById(this.product.id, 'products').inventory;
+        if (!this.getFromCart(this.product.id)) {
+          return this.getById(this.product.id, 'products').inventory;
         } else {
-          return this.$store.getters.getById(this.product.id, 'products').inventory - this.$store.getters.getFromCart(this.product.id).count;
+          return this.getById(this.product.id, 'products').inventory - this.getFromCart(this.product.id).count;
         }
-      }
+      },
+	    ...mapGetters([
+		    'getFromCart',
+		    'getById',
+		    'getImg'
+	    ]),
     },
     components: {}
   }

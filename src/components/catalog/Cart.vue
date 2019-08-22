@@ -94,7 +94,6 @@
 
           deleteFromCart(id) {
              let deletedItem = this.$store.commit('deleteFromCart', id);
-             console.log(deletedItem);
           }
         },
     filters: {
