@@ -13,7 +13,6 @@
 
 <script>
 	export default {
-		props: ['removePreloader'],
 		computed: {
 			removePreloader() {
 				return this.$store.state.removePreload;

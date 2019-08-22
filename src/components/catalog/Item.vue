@@ -3,7 +3,7 @@
 	  <div class="product">
 		  <img :src="'assets/cars/' + getUrl(product.id)" />
 		  <h6>
-			  <router-link :to="{ name: 'product', params: { id: product.id, product: product }}">{{product.title}}</router-link>
+			  <router-link :to="{ name: 'product', params: { id: product.id}}">{{product.title}}</router-link>
 		  </h6>
 		  <p>Цена: {{product.price}} грн.</p>
 		  <div class="actions">
