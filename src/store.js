@@ -68,7 +68,7 @@ export default new Vuex.Store({
 				sum += price * item.count;
 			});
 
-			return sum;
+			return sum.toFixed(2);
 		}
 	},
 	mutations: {
