@@ -25,8 +25,12 @@ export default new Router({
 	  name: "favourites",
 		  component: () =>
 			  import(/* webpackChunkName: "Favourites" */"./views/Favourites.vue")
-	},
-	{
+	}, {
+	  path: "/subscribe",
+	  name: "subscribe",
+		  component: () =>
+			  import(/* webpackChunkName: "Favourites" */"./views/Subscribe.vue")
+	}, {
 	  path: "/catalog/",
 	  name: "catalog",
 	  component: () =>

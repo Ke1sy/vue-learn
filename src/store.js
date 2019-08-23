@@ -25,6 +25,12 @@ export default new Vuex.Store({
 			{"id": 7, "title": "iPhone 10", "price": 500.01, "inventory": 17, "img": '7.jpg'},
 			{"id": 8, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 3, "img": '2.jpg'},
 			{"id": 9, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 1, "img": '3.jpg'}
+		],
+		team: [
+			{"id": 1, "name": "Сидоренко Андрей", "email": "sidorenko@gmail.com", "phone": '+380987000999', "img": '1.png'},
+			{"id": 2, "name": "Иваненко Владислав", "email": "ivanenko@gmail.com", "phone": '+380671266999', "img": '2.png'},
+			{"id": 3, "name": "Жук Вита", "email": "zhuk.svk@gmail.com", "phone": '+380677722888', "img": '3.png'},
+			{"id": 4, "name": "Смирнова Наталья", "email": "smirnova.svk@gmail.com", "phone": '+380661168999', "img": '4.png'},
 		]
 	},
 	getters: {
@@ -99,6 +105,7 @@ export default new Vuex.Store({
 		addToCart(state, payload) {
 			state.inCart.push(payload);
 		},
+
 		updateCart(state, payload) {
 			let item = state.inCart.find(x => x.id === payload.id);
 			item.count += payload.count;
@@ -132,6 +139,16 @@ export default new Vuex.Store({
 				console.warn(err);
 				$this.state.removePreload = true;
 			});
+		},
+
+		addToTeam (state, payload) {
+			let $this = this;
+			setTimeout(()=>{
+				let lastId = Number($this.state.team[$this.state.team.length - 1].id) + 1;
+				let newMember = Object.assign({id: lastId}, payload);
+				$this.state.team.push(newMember);
+			}, 2000);
+
 		}
 	},
 

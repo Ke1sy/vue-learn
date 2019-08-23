@@ -20,6 +20,9 @@
 						<router-link class="nav-item" active-class="active" to="/favourites" tag="li" exact>
 							<a class="nav-link">Favourites</a>
 						</router-link>
+						<router-link class="nav-item" active-class="active" to="/subscribe" tag="li" exact>
+							<a class="nav-link">Subscribe</a>
+						</router-link>
 					</ul>
 				</div>
 				<router-link class="nav-link" to="/favourites" active-class="active" exact>
