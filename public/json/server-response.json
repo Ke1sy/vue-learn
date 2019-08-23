@@ -1,0 +1,26 @@
+{
+  "movies": [
+    {
+      "id": "v-0",
+      "img": "DEEP HOUSE",
+      "title": "DEEP HOUSE"
+    },{
+      "id": "v-1",
+      "img": "КОРПОРАТИВНОЕ",
+      "title": "corporative"
+    },{
+      "id": "v-2",
+      "img": "ВИДЕО-УРОКИ (СТАНДАРТНЫЕ ТЕХНИКИ)",
+      "title": "video-lessons"
+    },{
+      "id": "v-3",
+      "img": "ROCK",
+      "title": "rock"
+    }
+  ],
+
+  "redirect": true,
+  "redirectUrl": "http://localhost:8080/filter/rubrics-deephouse",
+  "testLink": "http://elf-decor.wezom.agency/videos/filter/rubrics-deephouse_videourokistandartnyetehniki"
+}
+

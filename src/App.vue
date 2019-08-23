@@ -31,6 +31,12 @@
 				}, 3000);
 			});
 
+			this.$nextTick(() => {
+				setTimeout(() => {
+					this.$store.dispatch('getMovies');
+				}, 3000);
+			});
+
 		}
 
 	}

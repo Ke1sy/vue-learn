@@ -13,11 +13,13 @@
 
 <script>
 	export default {
+		props: ['removePreloader'],
 		computed: {
-			removePreloader() {
-				return this.$store.state.removePreload;
-			}
-		}
+			// removePreloader() {
+			// 	return this.$store.state.removePreload;
+			// }
+		},
+
 	}
 </script>
 

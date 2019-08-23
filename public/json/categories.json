@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "category": [
+    {
+      "id": 0,
+      "text": "DEEP HOUSE",
+      "category": "deephouse",
+      "checked": false
+    },{
+      "id": 1,
+      "text": "КОРПОРАТИВНОЕ",
+      "category": "corporative",
+      "checked": true
+    },{
+      "id": 3,
+      "text": "ВИДЕО-УРОКИ (СТАНДАРТНЫЕ ТЕХНИКИ)",
+      "category": "video-lessons",
+      "checked": false
+    },{
+      "id": 4,
+      "text": "ROCK",
+      "category": "rock",
+      "checked": true
+    }
+  ]
+}

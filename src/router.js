@@ -41,6 +41,11 @@ export default new Router({
 	  component: () =>
 		  import(/* webpackChunkName: "Product" */ "./views/Product.vue")
 	  }, {
+			path: '/movies',
+			name: 'movies',
+			component: () =>
+				import(/* webpackChunkName: "Movies" */ "./views/Movies.vue")
+	  }, {
 		  path: '/none',
 		 redirect: '/'
 	  }, {

@@ -7,13 +7,13 @@ Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 
 const postsApi = "https://jsonplaceholder.typicode.com/posts";
+const moviesApi = "json/all-movies.json";
 
 export default new Vuex.Store({
 	state: {
-		//posts
 		posts: [],
-		removePreload: false,
-		//catalog
+		postsLoaded: false,
+
 		inCart: [],
 		products: [
 			{"id": 1, "title": "iPad 4 Mini", "price": 500.01, "inventory": 2, "img": '1.jpg'},
@@ -26,19 +26,25 @@ export default new Vuex.Store({
 			{"id": 8, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 3, "img": '2.jpg'},
 			{"id": 9, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 1, "img": '3.jpg'}
 		],
+
 		team: [
 			{"id": 1, "name": "Сидоренко Андрей", "email": "sidorenko@gmail.com", "phone": '+380987000999', "img": '1.png'},
 			{"id": 2, "name": "Иваненко Владислав", "email": "ivanenko@gmail.com", "phone": '+380671266999', "img": '2.png'},
 			{"id": 3, "name": "Жук Вита", "email": "zhuk.svk@gmail.com", "phone": '+380677722888', "img": '3.png'},
 			{"id": 4, "name": "Смирнова Наталья", "email": "smirnova.svk@gmail.com", "phone": '+380661168999', "img": '4.png'},
-		]
+		],
+
+		movies: [],
+
+		moviesLoaded: false,
 	},
 	getters: {
-		//posts
+		//common getters
 		getById: state => (id, arr) => {
 			return state[arr].find(item => item.id === id);
 		},
 
+		//posts getters
 		findFavourites: state => {
 			return state.posts.filter(post => post.liked);
 		},
@@ -47,8 +53,7 @@ export default new Vuex.Store({
 			return state.posts.filter(post => post.title.indexOf(searchText) >= 0);
 		},
 
-		//catalog
-
+		//catalog getters
 		getImg: state => id => {
 			return state.products.find(product => product.id === id).img;
 		},
@@ -72,7 +77,7 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
-		//posts
+		//posts mutations
 		changePosts (type, payload) {
 			let data = payload.data;
 			for (let i = 0; i < 10; i++) {
@@ -80,10 +85,6 @@ export default new Vuex.Store({
 				data[i].likeCount = 0;
 				this.state.posts.push(data[i]);
 			}
-		},
-
-		changePreloaderState () {
-			this.state.removePreload = true;
 		},
 
 		removePost (type, payload) {
@@ -101,7 +102,7 @@ export default new Vuex.Store({
 			likedItem.liked = !likedItem.liked;
 		},
 
-		//	catalog
+		// catalog mutations
 		addToCart(state, payload) {
 			state.inCart.push(payload);
 		},
@@ -123,9 +124,20 @@ export default new Vuex.Store({
 					return false;
 				}
 			});
+		},
+
+		//movies
+
+		changeMovies(state, payload) {
+			let movies = payload.data.movies;
+			for (let i = 0; i < movies.length; i++) {
+				this.state.movies.push(movies[i]);
+			}
 		}
 	},
 	actions: {
+		//posts actions
+
 		getPosts () {
 			let $this = this;
 			Vue.axios.get(postsApi).then((response) => {
@@ -133,14 +145,30 @@ export default new Vuex.Store({
 					'type': 'changePosts',
 					'data': response.data
 				});
-				$this.state.removePreload = true;
+				$this.state.postsLoaded = true;
 
 			}, (err) => {
 				console.warn(err);
-				$this.state.removePreload = true;
+				$this.state.postsLoaded = true;
 			});
 		},
 
+		getMovies() {
+			let $this = this;
+			Vue.axios.get(moviesApi).then((response) => {
+				$this.commit({
+					'type': 'changeMovies',
+					'data': response.data
+				});
+				$this.state.moviesLoaded = true;
+			})
+			.catch(error => {
+				console.warn(error);
+				$this.state.moviesLoaded = true;
+			});
+		},
+
+		//subscribe actions
 		addToTeam (state, payload) {
 			let $this = this;
 			setTimeout(()=>{

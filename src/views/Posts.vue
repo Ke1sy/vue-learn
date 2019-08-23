@@ -3,7 +3,7 @@
 		<h1 class="text-center mb-4">Our Posts</h1>
 		<search @initSearch="initSearch" :count="filteredPostsCount"></search>
 		<div class="row posts">
-			<preloader :removePreloader="removePreloader"></preloader>
+			<preloader :removePreloader="postsLoaded"></preloader>
 			<post v-for="post in getItems" :key="post.id" :post="post" v-on:removePost="removePost" :show-remove="true"></post>
 			<button class="btn btn-info m-auto" @click="showAmount+=showStep" v-show="showAmount <= filteredPosts.length"> Show more</button>
 		</div>
@@ -23,7 +23,7 @@
 				filteredPosts: this.$store.state.posts,
 				filteredPostsCount: 0,
 				showStep: 4,
-				showAmount: 4
+				showAmount: 4,
 			}
 		},
 		methods: {
@@ -43,9 +43,10 @@
 
 		},
 		computed: {
-			removePreloader() {
-				return this.$store.state.removePreload;
+			postsLoaded() {
+				return this.$store.state.postsLoaded;
 			},
+
 			getItems() {
 				return this.filteredPosts.slice(0, this.showAmount);
 			},
