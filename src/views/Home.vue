@@ -1,13 +1,11 @@
 <template>
   <div class="container">
-      <tabs></tabs>
       <br>
   </div>
 </template>
 
 <script>
 
-import tabs from '../components/AliveTabs';
 
 export default {
   name: "home",
@@ -17,7 +15,6 @@ export default {
     }
   },
   components: {
-	  tabs,
   },
     provide: function() {
       return {
