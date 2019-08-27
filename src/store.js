@@ -6,42 +6,30 @@ import VueAxios from 'vue-axios'
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 
-const postsApi = "https://jsonplaceholder.typicode.com/posts";
-const moviesApi = "json/all-movies.json";
 
 export default new Vuex.Store({
 	state: {
+		apiUrls: false,
+		inCart: [],
+		products: [],
+		productsLoaded: false,
 		posts: [],
 		postsLoaded: false,
-
-		inCart: [],
-		products: [
-			{"id": 1, "title": "iPad 4 Mini", "price": 500.01, "inventory": 2, "img": '1.jpg'},
-			{"id": 2, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 10, "img": '2.jpg'},
-			{"id": 3, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 5, "img": '3.jpg'},
-			{"id": 4, "title": "iPad 3", "price": 500.01, "inventory": 7, "img": '4.jpg'},
-			{"id": 5, "title": "H&M T-Shirt Red", "price": 10.99, "inventory": 6, "img": '5.jpg'},
-			{"id": 6, "title": "Asus g546", "price": 19.99, "inventory": 12, "img": '6.jpg'},
-			{"id": 7, "title": "iPhone 10", "price": 500.01, "inventory": 17, "img": '7.jpg'},
-			{"id": 8, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 3, "img": '2.jpg'},
-			{"id": 9, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 1, "img": '3.jpg'}
-		],
-
-		team: [
-			{"id": 1, "name": "Сидоренко Андрей", "email": "sidorenko@gmail.com", "phone": '+380987000999', "img": '1.png'},
-			{"id": 2, "name": "Иваненко Владислав", "email": "ivanenko@gmail.com", "phone": '+380671266999', "img": '2.png'},
-			{"id": 3, "name": "Жук Вита", "email": "zhuk.svk@gmail.com", "phone": '+380677722888', "img": '3.png'},
-			{"id": 4, "name": "Смирнова Наталья", "email": "smirnova.svk@gmail.com", "phone": '+380661168999', "img": '4.png'},
-		],
-
+		teamLoaded: false,
+		team: [],
 		movies: [],
-
+		categories: [],
 		moviesLoaded: false,
+		categoriesLoaded: false,
 	},
 	getters: {
 		//common getters
 		getById: state => (id, arr) => {
 			return state[arr].find(item => item.id === id);
+		},
+
+		getByName: state => (name, arr) => {
+			return state[arr].find(item => item.name === name);
 		},
 
 		//posts getters
@@ -78,14 +66,6 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		//posts mutations
-		changePosts (type, payload) {
-			let data = payload.data;
-			for (let i = 0; i < 10; i++) {
-				data[i].liked = false;
-				data[i].likeCount = 0;
-				this.state.posts.push(data[i]);
-			}
-		},
 
 		removePost (type, payload) {
 			let odd = this.getters.getById(payload.id, 'posts');
@@ -126,45 +106,43 @@ export default new Vuex.Store({
 			});
 		},
 
-		//movies
+		//posts from placeholder api
+		changePosts (type, payload) {
+			let data = payload.data;
+			for (let i = 0; i < 10; i++) {
+				data[i].liked = false;
+				data[i].likeCount = 0;
+				this.state.posts.push(data[i]);
+			}
+		},
 
-		changeMovies(state, payload) {
-			let movies = payload.data.movies;
-			for (let i = 0; i < movies.length; i++) {
-				this.state.movies.push(movies[i]);
+		changeArr(state, payload) {
+			let elems = payload.data.data;
+			let arr = payload.array;
+			for (let i = 0; i < elems.length; i++) {
+				this.state[arr].push(elems[i]);
 			}
 		}
 	},
 	actions: {
-		//posts actions
-
-		getPosts () {
+		//get data from json file
+		getArray(state, payload) {
 			let $this = this;
-			Vue.axios.get(postsApi).then((response) => {
+			let $loadEl = payload.el;
+			let $array = payload.array;
+			let $loadCallback = payload.callback;
+			let $loadUrl = this.getters.getByName($array, 'apiUrls').url;
+			Vue.axios.get($loadUrl).then((response) => {
 				$this.commit({
-					'type': 'changePosts',
-					'data': response.data
+					'type': $loadCallback,
+					'data': response.data,
+					'array': $array
 				});
-				$this.state.postsLoaded = true;
-
-			}, (err) => {
-				console.warn(err);
-				$this.state.postsLoaded = true;
-			});
-		},
-
-		getMovies() {
-			let $this = this;
-			Vue.axios.get(moviesApi).then((response) => {
-				$this.commit({
-					'type': 'changeMovies',
-					'data': response.data
-				});
-				$this.state.moviesLoaded = true;
+				$this.state[$loadEl] = true;
 			})
 			.catch(error => {
 				console.warn(error);
-				$this.state.moviesLoaded = true;
+				$this.state[$loadEl] = true;
 			});
 		},
 
@@ -177,7 +155,15 @@ export default new Vuex.Store({
 				$this.state.team.push(newMember);
 			}, 2000);
 
+		},
+
+		getApiUrls(state, payload) {
+			let $this = this;
+			Vue.axios.get(payload).then((response) => {
+				$this.state.apiUrls = response.data.urls;
+			}, (err) => {
+				console.warn(err);
+			});
 		}
 	},
-
 });

@@ -32,29 +32,7 @@
 		data () {
 			return {
 				movies: this.$store.state.movies,
-				categories: [
-					{
-						"id": 0,
-						"text": "DEEP HOUSE",
-						"name": "deephouse",
-						"checked": false
-					},{
-						"id": 1,
-						"text": "КОРПОРАТИВНОЕ",
-						"name": "corporative",
-						"checked": true
-					},{
-						"id": 3,
-						"text": "ВИДЕО-УРОКИ (СТАНДАРТНЫЕ ТЕХНИКИ)",
-						"name": "video-lessons",
-						"checked": false
-					},{
-						"id": 4,
-						"text": "ROCK",
-						"name": "rock",
-						"checked": true
-					}
-				]
+				categories: this.$store.state.categories,
 			}
 		},
 		computed: {

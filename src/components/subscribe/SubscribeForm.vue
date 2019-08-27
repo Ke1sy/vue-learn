@@ -62,7 +62,6 @@
 	export default {
 		data () {
 			return {
-				team: this.$store.state.team,
 				name: '',
 				email: '',
 				phone: '',

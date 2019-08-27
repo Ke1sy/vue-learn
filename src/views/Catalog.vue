@@ -19,11 +19,16 @@
 	export default {
 		data() {
 			return {
-				countAll: this.$store.state.products.length,
 				countToShow: 6,
                 page: 1
 			}
 		},
+        computed: {
+	        countAll() {
+	        	return this.$store.state.products.length;
+            }
+
+        },
 
         methods: {
 	        changePage(val) {

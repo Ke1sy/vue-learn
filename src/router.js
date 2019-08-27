@@ -31,7 +31,7 @@ export default new Router({
 		  component: () =>
 			  import(/* webpackChunkName: "Subscribe" */"./views/Subscribe.vue")
 	}, {
-	  path: "/catalog/",
+	  path: "/catalog",
 	  name: "catalog",
 	  component: () =>
 	    import(/* webpackChunkName: "Catalog" */"./views/Catalog.vue"),

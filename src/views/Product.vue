@@ -28,10 +28,13 @@
 	export default {
 		data() {
 			return {
-				product: this.$store.getters.getById(Number(this.$route.params.id), 'products'),
 			}
 		},
 		computed: {
+			product() {
+				return this.$store.getters.getById(Number(this.$route.params.id), 'products')
+			},
+
 			imgUrl() {
 				return '/assets/cars/' + this.product.img;
 			}

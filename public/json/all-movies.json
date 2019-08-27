@@ -1,6 +1,6 @@
 {
   "success": true,
-  "movies": [
+  "data": [
     {
       "id": "1",
       "src": "assets/movies/movie-1.png",

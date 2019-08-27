@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "urls": [
+    {
+      "name": "movies",
+      "url": "json/all-movies.json"
+    },
+    {
+      "name": "categories",
+      "url": "json/categories.json"
+    },
+    {
+      "name": "posts",
+      "url": "https://jsonplaceholder.typicode.com/posts"
+    },
+    {
+      "name": "products",
+      "url": "http://localhost:8080/json/products.json"
+    },
+    {
+      "name": "team",
+      "url": "json/team.json"
+    }
+  ]
+}
+

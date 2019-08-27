@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "data": [
+    {"id": 1, "title": "iPad 4 Mini", "price": 500.01, "inventory": 2, "img": "1.jpg"},
+    {"id": 2, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 10, "img": "2.jpg"},
+    {"id": 3, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 5, "img": "3.jpg"},
+    {"id": 4, "title": "iPad 3", "price": 500.01, "inventory": 7, "img": "4.jpg"},
+    {"id": 5, "title": "H&M T-Shirt Red", "price": 10.99, "inventory": 6, "img": "5.jpg"},
+    {"id": 6, "title": "Asus g546", "price": 19.99, "inventory": 12, "img": "6.jpg"},
+    {"id": 7, "title": "iPhone 10", "price": 500.01, "inventory": 17, "img": "7.jpg"},
+    {"id": 8, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 3, "img": "2.jpg"},
+    {"id": 9, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 1, "img": "3.jpg"}
+  ]
+}

@@ -15,7 +15,9 @@
 
 	export default {
 		data () {
-			return {}
+			return {
+				apiUrls: this.$store.state.apiUrls,
+			}
 		},
 		methods: {},
 		computed: {},
@@ -25,18 +27,85 @@
 		},
 
 		mounted: function () {
-			this.$nextTick(() => {
-				setTimeout(() => {
-					this.$store.dispatch('getPosts');
-				}, 3000);
-			});
+			this.$store.dispatch('getApiUrls', this.$root.url);
+		},
 
-			this.$nextTick(() => {
-				setTimeout(() => {
-					this.$store.dispatch('getMovies');
-				}, 3000);
-			});
+		watch: {
+			$route (toR, fromR) {
+				switch (toR.name) {
+					case 'movies':
+						if (!this.$store.state.categoriesLoaded) {
+							this.$nextTick(() => {
+								setTimeout(() => {
+									this.$store.dispatch('getArray', {
+										'el': 'categoriesLoaded',
+										'callback': 'changeArr',
+										'array': 'categories'
+									});
+								}, 3000);
+							});
+						}
 
+						if (!this.$store.state.moviesLoaded) {
+							this.$nextTick(() => {
+								setTimeout(() => {
+									this.$store.dispatch('getArray', {
+										'el': 'moviesLoaded',
+										'callback': 'changeArr',
+										'array': 'movies'
+									});
+
+								}, 3000);
+							});
+						}
+						break;
+
+					case 'posts':
+						if (!this.$store.state.postsLoaded) {
+							this.$nextTick(() => {
+								setTimeout(() => {
+									this.$store.dispatch('getArray', {
+										'el': 'postsLoaded',
+										'callback': 'changePosts',
+										'array': 'posts'
+									});
+								}, 3000);
+							});
+						}
+						break;
+
+					case 'subscribe':
+						if (!this.$store.state.teamLoaded) {
+							this.$nextTick(() => {
+								setTimeout(() => {
+									// this.$store.dispatch('getPosts');
+									this.$store.dispatch('getArray', {
+										'el': 'teamLoaded',
+										'callback': 'changeArr',
+										'array': 'team'
+									});
+								}, 1000);
+							});
+						}
+						break;
+
+					case 'catalog':
+					case 'product':
+						if (!this.$store.state.productsLoaded) {
+
+							this.$nextTick(() => {
+								setTimeout(() => {
+									this.$store.dispatch('getArray', {
+										'el': 'productsLoaded',
+										'callback': 'changeArr',
+										'array': 'products'
+									});
+								}, 100);
+							});
+						}
+						break;
+				}
+			},
 		}
 
 	}
@@ -44,8 +113,4 @@
 
 <style lang="scss">
 	@import "assets/scss/styles";
-
-	.active {
-
-	}
 </style>
