@@ -34,6 +34,7 @@
 			$route (toR, fromR) {
 				switch (toR.name) {
 					case 'movies':
+
 						if (!this.$store.state.categoriesLoaded) {
 							this.$nextTick(() => {
 								setTimeout(() => {
@@ -42,7 +43,7 @@
 										'callback': 'changeArr',
 										'array': 'categories'
 									});
-								}, 3000);
+								}, 2000);
 							});
 						}
 

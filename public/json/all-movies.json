@@ -6,43 +6,43 @@
       "src": "assets/movies/movie-1.png",
       "title": "Avengers: Infinity War",
       "href": "#",
-      "category": "deephouse"
+      "category": "2"
     }, {
       "id": "2",
       "src": "assets/movies/movie-2.png",
       "title": "Red Sparrow",
       "href": "#",
-      "category": "deephouse"
+      "category": "3"
     },{
       "id": "3",
       "src": "assets/movies/movie-3.png",
       "title": "Hireditary",
       "href": "#",
-      "category": "corporative"
+      "category": "2"
     }, {
       "id": "4",
       "src": "assets/movies/movie-4.png",
       "title": "Increadibles 2",
       "href": "#",
-      "category": "video-lessons"
+      "category": "1"
     }, {
       "id": "5",
       "src": "assets/movies/movie-5.png",
       "title": "Terminal",
       "href": "#",
-      "category": "rock"
+      "category": "4"
     }, {
       "id": "6",
       "src": "assets/movies/movie-6.png",
       "title": "Anon",
       "href": "#",
-      "category": "rock"
+      "category": "4"
     }, {
       "id": "7",
       "src": "assets/movies/movie-7.png",
       "title": "Overboard",
       "href": "#",
-      "category": "rock"
+      "category": "1"
     }
   ]
 }

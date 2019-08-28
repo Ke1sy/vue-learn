@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<h2>Welcome to Movies Gallery!</h2>
-		<movies-filter :categories="categories"></movies-filter>
+		<movies-filter></movies-filter>
 
 		<div class="content">
 			<preloader :removePreloader="moviesLoaded"></preloader>
@@ -27,18 +27,17 @@
 <script>
 	import preloader from "../components/Preloader";
 	import MoviesFilter from "../components/movies/MoviesFilter";
+	import { mapGetters, mapState } from 'vuex';
 
 	export default {
-		data () {
-			return {
-				movies: this.$store.state.movies,
-				categories: this.$store.state.categories,
-			}
-		},
 		computed: {
-			moviesLoaded() {
-				return this.$store.state.moviesLoaded
-			}
+			...mapState([
+				'moviesLoaded'
+			]),
+
+			...mapGetters({
+				movies: 'filteredMovies'
+			}),
 		},
 		methods: {},
 		components: {

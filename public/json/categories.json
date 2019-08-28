@@ -2,25 +2,25 @@
   "success": true,
   "data": [
     {
-      "id": 0,
-      "text": "DEEP HOUSE",
-      "category": "deephouse",
+      "id": 1,
+      "text": "Comedy",
+      "category": "comedy",
       "checked": false
     },{
-      "id": 1,
-      "text": "КОРПОРАТИВНОЕ",
-      "category": "corporative",
-      "checked": true
+      "id": 2,
+      "text": "Action",
+      "category": "action",
+      "checked": false
     },{
       "id": 3,
-      "text": "ВИДЕО-УРОКИ (СТАНДАРТНЫЕ ТЕХНИКИ)",
-      "category": "video-lessons",
+      "text": "Drama",
+      "category": "drama",
       "checked": false
     },{
       "id": 4,
-      "text": "ROCK",
-      "category": "rock",
-      "checked": true
+      "text": "Horror",
+      "category": "horror",
+      "checked": false
     }
   ]
 }

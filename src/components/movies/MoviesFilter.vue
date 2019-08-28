@@ -20,32 +20,34 @@
 
 <script>
 	import FilterInput from './FilterInput.vue';
+	import { mapGetters, mapState } from 'vuex';
 
 	export default {
-		props: ['categories'],
-
 		data() {
 			return {
 				isOpen: false,
 			}
 		},
 		computed: {
-			checkedCategories() {
-				return this.categories.filter((item) => {
-                  return item.checked;
-				});
-            },
-			dropdownText() {
-				let checkedCategories = this.checkedCategories;
 
-				if (checkedCategories.length === 1) {
-					return checkedCategories[0].text;
-				} else if (checkedCategories.length > 1) {
-					return checkedCategories.length + ' параметра';
+			dropdownText() {
+				let checked = this.checkedCategories;
+				if (checked.length === 1) {
+					return checked[0].text;
+				} else if (checked.length > 1) {
+					return checked.length + ' параметра';
 				} else {
 					return 'Выбрать';
 				}
-			}
+			},
+
+			...mapState([
+				'categories'
+            ]),
+
+            ...mapGetters([
+                'checkedCategories'
+            ]),
         },
 
 		components: {

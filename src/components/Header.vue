@@ -47,11 +47,6 @@
 	import { mapGetters } from 'vuex';
 	import $ from 'jquery';
 	export default {
-		data() {
-			return {
-				// inCartLength: this.$store.getters.inCart.length
-			}
-		},
 		methods: {
 			openCart(){
 				$('#exampleModal').modal('show');

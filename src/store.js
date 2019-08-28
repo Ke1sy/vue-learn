@@ -62,6 +62,26 @@ export default new Vuex.Store({
 			});
 
 			return sum.toFixed(2);
+		},
+
+		//movies getters
+
+		checkedCategories: state => {
+			return state.categories.filter(item => item.checked);
+		},
+
+		checkedCategoriesIds: (state, getters) => {
+			let checkedIds = [];
+			getters.checkedCategories.forEach(item => checkedIds.push(item.id));
+			return checkedIds;
+		},
+
+		filteredMovies: (state, getters)  => {
+			if( !getters.checkedCategoriesIds.length ) {
+				return state.movies;
+			} else {
+				return state.movies.filter(movie => getters.checkedCategoriesIds.indexOf(Number(movie.category)) > -1);
+			}
 		}
 	},
 	mutations: {
@@ -164,6 +184,21 @@ export default new Vuex.Store({
 			}, (err) => {
 				console.warn(err);
 			});
+		},
+
+		updateFilter(state) {
+			// let $this = this;
+			// let categoriesIds = [];
+			// $this.getters.checkedCategories.forEach(item => categoriesIds.push(item.id));
+			// history.pushState(null, null, response.data.redirectUrl);
+
+			// Vue.axios.post('/server', {
+			// 	categories: categoriesIds,
+			// }).then((response) => {
+			// 	this.responseVideos = response.data.data;
+			// 	history.pushState(null, null, response.data.redirectUrl);
+			// });
+			// alert(123);
 		}
 	},
 });
