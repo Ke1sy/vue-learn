@@ -22,9 +22,15 @@ export default new Vuex.Store({
 		moviesLoaded: false,
 		categoriesLoaded: false,
 		categoriesChecked: false,
+		moviesToWatch: []
 	},
 	getters: {
 		//common getters
+
+		movieIsActive: (state) => (id) => {
+			return state.moviesToWatch.indexOf(id) > -1;
+		},
+
 		getById: state => (id, arr) => {
 			return state[arr].find(item => item.id === id);
 		},
@@ -83,14 +89,23 @@ export default new Vuex.Store({
 			} else {
 				return state.movies.filter(movie => getters.checkedCategoriesIds.indexOf(Number(movie.category)) > -1);
 			}
-		}
+		},
+
 	},
 	mutations: {
 		//posts mutations
-
 		removePost (type, payload) {
 			let odd = this.getters.getById(payload.id, 'posts');
 			this.state.posts.splice(odd, 1);
+		},
+
+		willWatch(state, payload){
+			let index = state.moviesToWatch.indexOf(payload);
+			if( index === -1) {
+				state.moviesToWatch.push(payload);
+			} else {
+				state.moviesToWatch.splice(index, 1);
+			}
 		},
 
 		addLike (type, payload) {
@@ -203,7 +218,7 @@ export default new Vuex.Store({
 			});
 		},
 
-		updateFilter(state) {
+		testToServer(state) {
 			// let $this = this;
 			// let categoriesIds = [];
 			// $this.getters.checkedCategories.forEach(item => categoriesIds.push(item.id));
@@ -218,8 +233,5 @@ export default new Vuex.Store({
 		}
 	},
 	watch: {
-		categoriesLoaded: function (val, oldVal) {
-			console.log('новое значение: %s, старое значение: %s', val, oldVal)
-		},
 	}
 });

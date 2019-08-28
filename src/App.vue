@@ -38,7 +38,7 @@
 			categoriesLoaded: function (val) {
 				if(val && !this.$store.state.categoriesChecked) {
 					let isSelectedCat = this.$route.query.cat;
-					if(isSelectedCat.length) {
+					if(isSelectedCat !== 'undefined') {
 						this.$store.commit('checkCategories', {selected: isSelectedCat});
 					}
 				}

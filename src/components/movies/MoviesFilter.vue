@@ -66,7 +66,7 @@
         z-index: 2;
         width: 300px;
         position: relative;
-        margin: 40px 0;
+        margin: 0 0 40px;
     }
 
     .filter-item {

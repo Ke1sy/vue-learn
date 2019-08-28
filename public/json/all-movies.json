@@ -6,43 +6,50 @@
       "src": "assets/movies/movie-1.png",
       "title": "Avengers: Infinity War",
       "href": "#",
-      "category": "2"
+      "category": "2",
+      "rating": "8.5"
     }, {
       "id": "2",
       "src": "assets/movies/movie-2.png",
       "title": "Red Sparrow",
       "href": "#",
-      "category": "3"
+      "category": "3",
+      "rating": "6.4"
     },{
       "id": "3",
       "src": "assets/movies/movie-3.png",
       "title": "Hireditary",
       "href": "#",
-      "category": "2"
+      "category": "2",
+      "rating": "6.7"
     }, {
       "id": "4",
       "src": "assets/movies/movie-4.png",
       "title": "Increadibles 2",
       "href": "#",
-      "category": "1"
+      "category": "1",
+      "rating": "7.5"
     }, {
       "id": "5",
       "src": "assets/movies/movie-5.png",
       "title": "Terminal",
       "href": "#",
-      "category": "4"
+      "category": "4",
+      "rating": "5.6"
     }, {
       "id": "6",
       "src": "assets/movies/movie-6.png",
       "title": "Anon",
       "href": "#",
-      "category": "4"
+      "category": "4",
+      "rating": "5.8"
     }, {
       "id": "7",
       "src": "assets/movies/movie-7.png",
       "title": "Overboard",
       "href": "#",
-      "category": "1"
+      "category": "1",
+      "rating": "5.6"
     }
   ]
 }
