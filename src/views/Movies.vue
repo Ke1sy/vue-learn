@@ -19,7 +19,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </template>
@@ -30,6 +29,10 @@
 	import { mapGetters, mapState } from 'vuex';
 
 	export default {
+		data() {
+			return {
+			}
+		},
 		computed: {
 			...mapState([
 				'moviesLoaded'
@@ -39,14 +42,12 @@
 				movies: 'filteredMovies'
 			}),
 		},
-		methods: {},
+		methods: {
+		},
 		components: {
 			preloader,
 			MoviesFilter
 		},
-		watch: {
-
-		}
 	}
 </script>
 

@@ -12,9 +12,7 @@
                     v-on:gatherData="$emit('returnToForm')"
             >
             </filter-input>
-
         </div>
-
     </div>
 </template>
 
@@ -29,7 +27,6 @@
 			}
 		},
 		computed: {
-
 			dropdownText() {
 				let checked = this.checkedCategories;
 				if (checked.length === 1) {

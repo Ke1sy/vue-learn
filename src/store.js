@@ -21,6 +21,7 @@ export default new Vuex.Store({
 		categories: [],
 		moviesLoaded: false,
 		categoriesLoaded: false,
+		categoriesChecked: false,
 	},
 	getters: {
 		//common getters
@@ -142,6 +143,22 @@ export default new Vuex.Store({
 			for (let i = 0; i < elems.length; i++) {
 				this.state[arr].push(elems[i]);
 			}
+		},
+
+		checkCategories(state, payload){
+			let selected = payload.selected;
+			if(typeof selected === 'string') {
+				let item = state.categories.find(item => item.id === Number(selected));
+				item.checked = true;
+			} else if (typeof selected === 'object') {
+				state.categories.forEach(item => {
+					if(selected.indexOf(String(item.id)) > -1) {
+						item.checked = true;
+					}
+				});
+
+			}
+			state.categoriesChecked = true;
 		}
 	},
 	actions: {
@@ -198,7 +215,11 @@ export default new Vuex.Store({
 			// 	this.responseVideos = response.data.data;
 			// 	history.pushState(null, null, response.data.redirectUrl);
 			// });
-			// alert(123);
 		}
 	},
+	watch: {
+		categoriesLoaded: function (val, oldVal) {
+			console.log('новое значение: %s, старое значение: %s', val, oldVal)
+		},
+	}
 });

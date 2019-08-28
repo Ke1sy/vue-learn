@@ -20,17 +20,30 @@
 			}
 		},
 		methods: {},
-		computed: {},
+		computed: {
+			categoriesLoaded() {
+				return this.$store.state.categoriesLoaded;
+			}
+		},
 		components: {
 			headerPart,
 			'app-cart': Cart
 		},
 
-		mounted: function () {
+		created: function () {
 			this.$store.dispatch('getApiUrls', this.$root.url);
 		},
 
 		watch: {
+			categoriesLoaded: function (val) {
+				if(val && !this.$store.state.categoriesChecked) {
+					let isSelectedCat = this.$route.query.cat;
+					if(isSelectedCat.length) {
+						this.$store.commit('checkCategories', {selected: isSelectedCat});
+					}
+				}
+			},
+
 			$route (toR, fromR) {
 				switch (toR.name) {
 					case 'movies':

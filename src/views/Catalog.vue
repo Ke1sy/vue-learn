@@ -4,15 +4,13 @@
       <h1 class="text-center mb-4">Catalog</h1>
 
       <app-products :count-to-show="countToShow" :page="page"></app-products>
-      <hr>
-      <pagination :count-all="countAll" :count-to-show="countToShow" :page="page" @changePage="changePage"></pagination>
+      <pagination :count-all="countAll" :count-to-show="countToShow" :page="page" @changePage="changePage" v-show="showPagination"></pagination>
     </div>
   </div>
 </template>
 
 
 <script>
-
 	import Actions from '../components/catalog/Actions';
 	import Products from '../components/catalog/Products';
 	import Pagination from '../components/Pagination';
@@ -24,10 +22,12 @@
 			}
 		},
         computed: {
+			showPagination() {
+				return this.countAll > this.countToShow;
+            },
 	        countAll() {
 	        	return this.$store.state.products.length;
             }
-
         },
 
         methods: {

@@ -23,9 +23,7 @@
 	        ...mapGetters({
 		        checked: 'checkedCategories'
 	        })
-        }
-
-
+        },
 	}
 </script>
 
