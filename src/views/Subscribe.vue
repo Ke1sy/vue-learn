@@ -19,7 +19,6 @@
 	export default {
 		data() {
 			return {
-				team: this.$store.state.team,
 				name: '',
 				email: '',
 				phone: '',
@@ -30,16 +29,14 @@
 
 		},
 		computed: {
-
+			team(){
+				return  this.$store.state.team
+			},
 		},
 		components: {
 			subscriber,
 			subscribeForm
 		},
-
-		mounted: function () {
-			// this.$v.$reset();
-		}
 	}
 </script>
 

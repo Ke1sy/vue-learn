@@ -1,5 +1,5 @@
 <template>
-	<form class="form subscribe__form js-subscribe-form" action="/">
+	<form class="form subscribe__form js-subscribe-form">
 		<div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
 			<label class="form__label">Имя* :</label>
 			<input class="form__input" v-model.trim="$v.name.$model"/>
@@ -44,12 +44,9 @@
 <script>
 	import Vue from 'vue';
 	import Vuelidate from 'vuelidate';
-
-	Vue.use(Vuelidate);
 	import {alpha, required, minLength, email, helpers} from 'vuelidate/lib/validators';
-
 	import MaskedInput from "vue-masked-input";
-
+	Vue.use(Vuelidate);
 	Vue.use(MaskedInput);
 
 	const testArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
@@ -91,12 +88,10 @@
 			submitForm (e) {
 				this.$v.$touch();
 				if (this.$v.$invalid || this.$v.$error) {
-					alert('Submit form!');
+					e.preventDefault();
 				}
 				else {
-					alert('Submit success!');
-
-					this.$store.dispatch('addToTeam', {
+					this.$store.dispatch('serverAddMember', {
 						name: this.name,
 						email: this.email,
 						phone: this.fomattedNumber,

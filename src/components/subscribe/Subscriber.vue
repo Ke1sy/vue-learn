@@ -6,8 +6,8 @@
 		<div class="subscriber__info">
 			<span>{{user.name}}</span>
 			<a :href="'mailto:' + user.email" class="subscriber__link">{{user.email}}</a>
-			<a :href="'tel:' + user.phone" class="subscriber__link">
-				{{decoratedPhone(user.phone)}}
+			<a :href="'tel:' + fomattedNumber(user.phone)" class="subscriber__link">
+				{{decoratedPhone(fomattedNumber(user.phone))}}
 			</a>
 		</div>
 	</div>
@@ -28,12 +28,14 @@
 
 			decoratedPhone (number) {
 				return number.slice(0, 3) + ' (' + number.slice(3, 6) + ') ' + number.slice(6, 9) + ' ' + number.slice(9, 11) + ' ' + number.slice(11);
-			}
+			},
+
+			fomattedNumber (phone) {
+				return phone.replace(/[-()\s]/g, '');
+			},
 		},
 		computed: {
-			fomattedNumer () {
-				return this.phone.replace(/[-()\s]/g, '');
-			},
+
 		},
 
 	}

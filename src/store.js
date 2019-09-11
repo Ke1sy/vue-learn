@@ -6,7 +6,6 @@ import VueAxios from 'vue-axios'
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 
-
 export default new Vuex.Store({
 	state: {
 		apiUrls: false,
@@ -83,8 +82,8 @@ export default new Vuex.Store({
 			return checkedIds;
 		},
 
-		filteredMovies: (state, getters)  => {
-			if( !getters.checkedCategoriesIds.length ) {
+		filteredMovies: (state, getters) => {
+			if (!getters.checkedCategoriesIds.length) {
 				return state.movies;
 			} else {
 				return state.movies.filter(movie => getters.checkedCategoriesIds.indexOf(Number(movie.category)) > -1);
@@ -94,14 +93,22 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		//posts mutations
+		updateTeam (state, payload) {
+			console.log(state.team)
+		// 	let team = state.team;
+		// 	debugger
+		// 	team.splice(0, this.length);
+		// 	payload.forEach(item, () => team.push(item));
+		},
+
 		removePost (type, payload) {
 			let odd = this.getters.getById(payload.id, 'posts');
 			this.state.posts.splice(odd, 1);
 		},
 
-		willWatch(state, payload){
+		willWatch (state, payload) {
 			let index = state.moviesToWatch.indexOf(payload);
-			if( index === -1) {
+			if (index === -1) {
 				state.moviesToWatch.push(payload);
 			} else {
 				state.moviesToWatch.splice(index, 1);
@@ -119,21 +126,21 @@ export default new Vuex.Store({
 		},
 
 		// catalog mutations
-		addToCart(state, payload) {
+		addToCart (state, payload) {
 			state.inCart.push(payload);
 		},
 
-		updateCart(state, payload) {
+		updateCart (state, payload) {
 			let item = state.inCart.find(x => x.id === payload.id);
 			item.count += payload.count;
 		},
 
-		changeInCart(state, payload) {
+		changeInCart (state, payload) {
 			let item = state.inCart.find(x => x.id === payload.id);
 			item.count += payload.val;
 		},
 
-		deleteFromCart(state, payload) {
+		deleteFromCart (state, payload) {
 			state.inCart.forEach((el, i) => {
 				if (el.id === payload) {
 					state.inCart.splice(i, 1);
@@ -152,7 +159,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		changeArr(state, payload) {
+		changeArr (state, payload) {
 			let elems = payload.data.data;
 			let arr = payload.array;
 			for (let i = 0; i < elems.length; i++) {
@@ -160,14 +167,14 @@ export default new Vuex.Store({
 			}
 		},
 
-		checkCategories(state, payload){
+		checkCategories (state, payload) {
 			let selected = payload.selected;
-			if(typeof selected === 'string') {
+			if (typeof selected === 'string') {
 				let item = state.categories.find(item => item.id === Number(selected));
 				item.checked = true;
 			} else if (typeof selected === 'object') {
 				state.categories.forEach(item => {
-					if(selected.indexOf(String(item.id)) > -1) {
+					if (selected.indexOf(String(item.id)) > -1) {
 						item.checked = true;
 					}
 				});
@@ -178,7 +185,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		//get data from json file
-		getArray(state, payload) {
+		getArray (state, payload) {
 			let $this = this;
 			let $loadEl = payload.el;
 			let $array = payload.array;
@@ -191,25 +198,13 @@ export default new Vuex.Store({
 					'array': $array
 				});
 				$this.state[$loadEl] = true;
-			})
-			.catch(error => {
+			}).catch(error => {
 				console.warn(error);
 				$this.state[$loadEl] = true;
 			});
 		},
 
-		//subscribe actions
-		addToTeam (state, payload) {
-			let $this = this;
-			setTimeout(()=>{
-				let lastId = Number($this.state.team[$this.state.team.length - 1].id) + 1;
-				let newMember = Object.assign({id: lastId}, payload);
-				$this.state.team.push(newMember);
-			}, 2000);
-
-		},
-
-		getApiUrls(state, payload) {
+		getApiUrls (state, payload) {
 			let $this = this;
 			Vue.axios.get(payload).then((response) => {
 				$this.state.apiUrls = response.data.urls;
@@ -218,20 +213,24 @@ export default new Vuex.Store({
 			});
 		},
 
-		testToServer(state) {
-			// let $this = this;
-			// let categoriesIds = [];
-			// $this.getters.checkedCategories.forEach(item => categoriesIds.push(item.id));
-			// history.pushState(null, null, response.data.redirectUrl);
-
-			// Vue.axios.post('/server', {
-			// 	categories: categoriesIds,
-			// }).then((response) => {
-			// 	this.responseVideos = response.data.data;
-			// 	history.pushState(null, null, response.data.redirectUrl);
-			// });
-		}
+		serverAddMember (state, payload) {
+			let $this = this;
+			Vue.axios.post('/server-add-team', {
+				member: payload,
+				team: $this.state.team
+			}).then((response) => {
+				$this.state.team = response.data;
+				$this.commit({
+					'type': 'updateTeam',
+					'payload': response.data,
+				});
+			});
+		},
 	},
+
 	watch: {
+		team: function (val) {
+			this.state.team = val;
+		}
 	}
 });
