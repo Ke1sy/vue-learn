@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "data": [
+    {"id": 1, "name": "Сидоренко Андрей", "email": "sidorenko@gmail.com", "phone": "+38(098)7000999", "img": "1.png"},
+    {"id": 2, "name": "Иваненко Владислав", "email": "ivanenko@gmail.com", "phone": "+380671266999", "img": "2.png"},
+    {"id": 3, "name": "Жук Вита", "email": "zhuk.svk@gmail.com", "phone": "+380677722888", "img": "3.png"},
+    {"id": 4, "name": "Смирнова Наталья", "email": "smirnova.svk@gmail.com", "phone": "+380661168999", "img": "4.png"},
+    {"id": 5, "name": "New member", "email": "new.svk@gmail.com", "phone": "+380661145356", "img": ""}
+  ]
+}

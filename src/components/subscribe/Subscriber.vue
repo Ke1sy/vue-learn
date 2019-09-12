@@ -14,16 +14,14 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
+
 	export default {
 		props: ['user'],
-		data () {
-			return {
-				team: this.$store.state.team,
-			}
-		},
 		methods: {
 			getImg (id) {
-				return this.$store.getters.getById(id, 'team').img ? 'assets/team/team-' + this.$store.getters.getById(id, 'team').img : 'https://via.placeholder.com/78.png';
+				let image = this.getById(id, 'team').img;
+				return image !== "" ? 'assets/team/team-' + image : 'https://via.placeholder.com/78.png';
 			},
 
 			decoratedPhone (number) {
@@ -35,7 +33,9 @@
 			},
 		},
 		computed: {
-
+			...mapGetters([
+				'getById',
+			]),
 		},
 
 	}

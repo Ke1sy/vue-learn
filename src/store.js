@@ -92,15 +92,6 @@ export default new Vuex.Store({
 
 	},
 	mutations: {
-		//posts mutations
-		updateTeam (state, payload) {
-			console.log(state.team)
-		// 	let team = state.team;
-		// 	debugger
-		// 	team.splice(0, this.length);
-		// 	payload.forEach(item, () => team.push(item));
-		},
-
 		removePost (type, payload) {
 			let odd = this.getters.getById(payload.id, 'posts');
 			this.state.posts.splice(odd, 1);
@@ -181,7 +172,16 @@ export default new Vuex.Store({
 
 			}
 			state.categoriesChecked = true;
-		}
+		},
+
+		teamUpdate (state, payload) {
+			let newTeam = payload.data.data;
+			state.team.splice(0, state.team.length);
+			for (let i = 0; i < newTeam.length; i++) {
+				state.team.push(newTeam[i]);
+			}
+
+		},
 	},
 	actions: {
 		//get data from json file
@@ -215,15 +215,23 @@ export default new Vuex.Store({
 
 		serverAddMember (state, payload) {
 			let $this = this;
-			Vue.axios.post('/server-add-team', {
-				member: payload,
-				team: $this.state.team
-			}).then((response) => {
-				$this.state.team = response.data;
-				$this.commit({
-					'type': 'updateTeam',
-					'payload': response.data,
-				});
+			// dev server: post data while adding to team
+			// Vue.axios.post('/server-add-team', {
+			// 	member: payload,
+			// 	team: $this.state.team
+			// }).then((response) => {
+			// 	$this.state.team = response.data;
+			// });
+
+
+			Vue.axios.get('json/server-add-team.json', {}).then((response) => {
+				// $this.commit({
+				// 	'type': 'teamUpdate',
+				// 	'data': response.data,
+				// });
+					let lastId = Number($this.state.team[$this.state.team.length - 1].id) + 1;
+					let newMember = Object.assign({id: lastId}, payload);
+					$this.state.team.push(newMember);
 			});
 		},
 	},

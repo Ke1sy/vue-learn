@@ -15,7 +15,7 @@
     },
     {
       "name": "products",
-      "url": "http://localhost:8080/json/products.json"
+      "url": "json/products.json"
     },
     {
       "name": "team",
