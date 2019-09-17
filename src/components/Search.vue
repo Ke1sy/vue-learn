@@ -49,7 +49,6 @@
 			padding: 10px 20px;
 			border: 1px solid #eee;
 			margin-bottom: 10px;
-
 		}
 
 		&__text {

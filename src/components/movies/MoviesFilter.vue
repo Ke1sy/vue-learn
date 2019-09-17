@@ -1,23 +1,28 @@
 <template>
-    <div class="filter-wrap">
-        <div :class="['filter-item', isOpen ? 'open' : '']" @click="isOpen = !isOpen">
-            <span> {{dropdownText}}</span>
-        </div>
-        <div class="dropdown" v-show="isOpen">
+    <div>
+        <div class="filter-wrap">
+            <div :class="['filter-item', isOpen ? 'open' : '']" @click="isOpen = !isOpen">
+                <span> {{dropdownText}}</span>
+            </div>
+            <div class="dropdown" v-show="isOpen">
 
-            <filter-input
-                    v-for="category in categories"
-                    :key="category.id"
-                    :category="category"
-                    v-on:gatherData="$emit('returnToForm')"
-            >
-            </filter-input>
+                <filter-input
+                        v-for="category in categories"
+                        :key="category.id"
+                        :category="category"
+                        v-on:gatherData="$emit('returnToForm')"
+                >
+                </filter-input>
+            </div>
         </div>
+        <filter-input-text @change="filterBySearch">
+        </filter-input-text>
     </div>
 </template>
 
 <script>
 	import FilterInput from './FilterInput.vue';
+	import FilterInputText from './FilterInputText.vue';
 	import { mapGetters, mapState } from 'vuex';
 
 	export default {
@@ -26,6 +31,12 @@
 				isOpen: false,
 			}
 		},
+
+        methods: {
+	        filterBySearch() {
+
+            }
+        },
 		computed: {
 			dropdownText() {
 				let checked = this.checkedCategories;
@@ -48,7 +59,8 @@
         },
 
 		components: {
-			FilterInput: FilterInput
+			FilterInputText,
+			FilterInput,
 		}
 	}
 </script>

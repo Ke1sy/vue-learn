@@ -4,7 +4,7 @@
 			<h1 class="text-center title"> {{product.title}}</h1>
 			<div class="row">
 				<div class="col col-12 col-sm-5 mb-4">
-					<img :src="imgUrl"/>
+					<img :src="publicPath + imgUrl"/>
 				</div>
 
 				<div class="col col-12 col-sm-7 mb-4">
@@ -28,6 +28,7 @@
 	export default {
 		data() {
 			return {
+				publicPath: process.env.BASE_URL,
 			}
 		},
 		computed: {
@@ -36,7 +37,7 @@
 			},
 
 			imgUrl() {
-				return '/assets/cars/' + this.product.img;
+				return 'assets/cars/' + this.product.img;
 			}
 		},
 		watch: {

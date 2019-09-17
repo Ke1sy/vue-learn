@@ -14,8 +14,8 @@
 		props: ['category'],
         methods: {
 	        updateFilter() {
-               let checkedIds = [];
-		       this.checked.forEach(item => checkedIds.push(item.id));
+               let checkedIds = '';
+		       this.checked.forEach((item, i) => i === (this.checked.length - 1) ? checkedIds += item.id : checkedIds += item.id + ',' );
 		       this.$router.push({ name: 'movies', query: { cat: checkedIds } });
             }
         },

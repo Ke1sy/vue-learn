@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-md-4">
 	  <div class="product">
-		  <img :src="'assets/cars/' + getUrl(product.id)" />
+		  <img :src="publicPath + 'assets/cars/' + getUrl(product.id)" />
 		  <h6>
 			  <router-link :to="{ name: 'product', params: { id: product.id}}">{{product.title}}</router-link>
 		  </h6>
@@ -25,6 +25,7 @@
     data() {
       return {
         count: 1,
+	    publicPath: process.env.BASE_URL,
       }
     },
     methods: {
